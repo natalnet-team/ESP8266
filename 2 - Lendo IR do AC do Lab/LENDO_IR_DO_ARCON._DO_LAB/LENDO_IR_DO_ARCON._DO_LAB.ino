@@ -1,0 +1,36 @@
+#include <IRremoteESP8266.h>
+
+
+   
+  IRsend irsend(5);
+  
+    int tamanho = 60; //TAMANHO DA LINHA RAW(68 BLOCOS)
+    int frequencia = 32; //FREQUÊNCIA DO SINAL IR(32KHz)
+   
+
+
+  unsigned int LIGAR[60] = {8350,4300,550,1750,500,650,550,600,550,600,550,1750,550,600,550,650,550,600,550,600,550,650,550,600,550,600,550,650,550,600,550,600,550,650,550,600,550,600,550,1750,550,1750,550,600,550,1750,550,600,550,600,550,650,550,1750,550,1750,550,1750,550};
+
+
+
+
+ 
+void setup(){
+  Serial.begin(115200); //INICIALIZA A SERIAL
+ irsend.begin(); //INICIALIZA A FUNÇÃO
+}
+//MÉTODO RESPONSÁVEL POR FAZER A DECODIFICAÇÃO DO SINAL IR RECEBIDO
+//OS DADOS SÃO PASSADOS PARA A BIBLIOTECA IRREMOTE QUE FAZ TODO O
+//TRATAMENTO E RETORNA AS INFORMAÇÕES DE ACORDO COM O PROTOCOLO RECONHECIDO
+
+void loop() {
+  char c = Serial.read();
+  
+      
+     
+              irsend.sendRaw(LIGAR,tamanho,frequencia);  // PARÂMETROS NECESSÁRIOS PARA ENVIO DO SINAL IR
+              Serial.println("Comando enviado: Liga / Desliga");
+              delay(500); // TEMPO(EM MILISEGUNDOS) DE INTERVALO ENTRE UM COMANDO E OUTRO
+          
+  
+}
